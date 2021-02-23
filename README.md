@@ -1,1 +1,8 @@
 # NY Property Value Unsupervised Fraud Model
+
+The IRS estimates that tax fraud costs the US government as much as $450 bullion annually.  With an estimated 122 million households in the US, it is incredibly difficult for tax investigators to efficiently identify cases of potential real estate and mortgage fraud.  This project focuses on building an unsupervised model for finding and filtering for properties based on unusual property sizes and values.     
+
+Over one million property records in New York City were analyzed and ordered based on an averaged rank of two different scores.  The model uses forty-five input variables that compare the ratio of the land values to the property building and lot sizes.  Missing values were replaced by imputing the averages based on the tax class of the property.  The variables were standardized using z-scaling and the dimensionality of these variables was reduced using Principal Component Analysis (PCA) to eight key features.  
+
+The first scoring method uses the Minkowsky distance between the scaled variables and the origin, with the higher the distance, the more “unusual” the record.  The second method uses an autoencoder, an unsupervised method that compresses the data and learns how to reconstruct the data, and creates a score based on the Minkowsky distance of the autoencoder error (the difference between the input and outputs).  These two scores were then converted into ranks, based on other scores in the dataset, and averaged to create a single scaled score.  The returned dataset contains the top 100 records that were flagged as anomalies, which would be given to a property investigator.  
+
